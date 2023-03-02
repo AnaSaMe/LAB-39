@@ -1,0 +1,64 @@
+#----------------LABORATORIO 39 -------------------
+#-------DRA. CARLA CAROLINA PÉREZ HERNÁNDEZ--------
+
+#--------ALUMNA: Ana Grisel Sanjuan Merida---------
+
+###LAB API DATAMEx###
+
+#Visitar la página https://api.datamexico.org/ui/
+#Se podrá observar el cubo de consulta de la API de DataMéxico
+#Trabajaremos con el Gini por municipios del CONEVAL
+#Para el primer drilldown se selecciona Geography/Municipality
+#Para el segundo drilldown se selecciona Año
+#En Measures seleccionamos GINI y el Income Rate
+#Ejecutamos el query
+#En el ícono de cámara fotográfica damos clic
+#Se descarga el archivo en las tres extensiones (CSV, JSON Tidy y JSON Arrays)
+
+#Actividad en R
+
+#Instalar el paquete jsonlite
+install.packages("jsonlite")
+
+#Se abre la librería de jsonlite
+library(jsonlite)
+
+#Seleccionamos el json que acabamos de descargar
+file.choose()
+#El archivo es Municipality-Year-records.json
+
+#Copiamos la ubicación del archivo
+#Generamos un data llamado datos_api2
+datos_api2 <- fromJSON("C:\\Users\\Lenovo\\Documents\\GitHub\\LAB-39\\L39 Input\\Municipality-Year-records.json")
+#En el enviroement ya se pueden apreciar los datos
+
+#Para saber que tipo de datos son, corremos class con el nombre del objeto recién creado
+class(datos_api2)
+#En la consola podemos ver que es una lista
+
+#Para conocer los nombres de dicha lista, corremos names del objeto
+names(datos_api2)
+
+#Para corroborar, damos doble clic en el objeto que esta en el Enviroment
+#Se abre nuevo Script y podemos ver los names
+#Tengo dos: 
+#El data frame de la API que descargamos de DataMéxico (dar clic en el ícono de pergamino para desplegar)
+#Y el source
+
+#Para ver el data frame del objeto creado
+View(datos_api2[["data"]])
+
+#Creamos objeto llamado final_API del name data que pertenece al objeto datos_api2
+final_API <- as.data.frame((datos_api2[["data"]]))
+#El objeto se puede ver en el enviroment
+
+#Para corroborar que la lista del name data ahora es un data frame, corremos class del objeto recien obtenido
+class(final_API)
+#Corroborarmos que es un data frame
+
+#Para guardarlo como un archivo csv, corremos write.csv y lo guardamos en los documentos
+write.csv(final_API, file = "final_API.CSV")
+#Ahora, del material descargado de la API de DataMéxico, hemos generado un archivo csv
+
+
+#------------------- FIN DE LABORATORIO 39 ------------------------
